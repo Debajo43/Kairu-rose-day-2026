@@ -93,8 +93,8 @@ h1 {
 <body>
 
 <!-- Background Music -->
-<audio id="bgMusic" loop preload="auto">
-</audio>
+<audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+
 
 
 <div class="container" id="mainContent">
@@ -111,10 +111,15 @@ function startExperience() {
 
     const music = document.getElementById("bgMusic");
 
-    // Only start music if it's not already playing
-    if (music.paused) {
+    // Start music only once
+    if (!music.dataset.started) {
         music.volume = 0.4;
-        music.play().catch(() => {});
+
+        music.play().then(() => {
+            music.dataset.started = "true";
+        }).catch((error) => {
+            console.log("Playback failed:", error);
+        });
     }
 
     if (stage === 0) {
@@ -126,6 +131,7 @@ function startExperience() {
         showSurprise();
     }
 }
+
 
 
 
@@ -172,6 +178,7 @@ function showSurprise() {
 
 </body>
 </html>
+
 
 
 
