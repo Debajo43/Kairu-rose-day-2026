@@ -93,8 +93,7 @@ h1 {
 <body>
 
 <!-- Background Music -->
-<audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop preload="auto">
 </audio>
 
 
@@ -111,6 +110,9 @@ let roseInterval;
 function startExperience() {
 
     const music = document.getElementById("bgMusic");
+        music.src = "music.mp3";
+        music.load();
+        music.play();
 
     // Force proper play after user interaction
     music.volume = 0.4;
@@ -177,3 +179,4 @@ function showSurprise() {
 
 </body>
 </html>
+
