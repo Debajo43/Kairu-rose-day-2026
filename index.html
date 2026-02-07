@@ -110,19 +110,11 @@ let roseInterval;
 function startExperience() {
 
     const music = document.getElementById("bgMusic");
-        music.src = "music.mp3";
-        music.load();
-        music.play();
 
-    // Force proper play after user interaction
-    music.volume = 0.4;
-    music.currentTime = 0;
-
-    const playPromise = music.play();
-    if (playPromise !== undefined) {
-        playPromise.catch(() => {
-            console.log("Audio playback prevented.");
-        });
+    // Only start music if it's not already playing
+    if (music.paused) {
+        music.volume = 0.4;
+        music.play().catch(() => {});
     }
 
     if (stage === 0) {
@@ -134,6 +126,7 @@ function startExperience() {
         showSurprise();
     }
 }
+
 
 
 function showRoses() {
@@ -179,5 +172,6 @@ function showSurprise() {
 
 </body>
 </html>
+
 
 
