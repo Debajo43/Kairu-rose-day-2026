@@ -93,9 +93,10 @@ h1 {
 <body>
 
 <!-- Background Music -->
-<audio id="bgMusic" loop preload="auto">
-<source src="https://cdn.pixabay.com/audio/2023/03/06/audio_124bfa5b3e.mp3" type="audio/mp3">
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
 </audio>
+
 
 <div class="container" id="mainContent">
     <h1>A little something for you 🌸</h1>
@@ -109,10 +110,18 @@ let roseInterval;
 
 function startExperience() {
 
-    // Proper user-triggered audio play
     const music = document.getElementById("bgMusic");
+
+    // Force proper play after user interaction
     music.volume = 0.4;
-    music.play().catch(() => {});
+    music.currentTime = 0;
+
+    const playPromise = music.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            console.log("Audio playback prevented.");
+        });
+    }
 
     if (stage === 0) {
         stage = 1;
@@ -123,6 +132,7 @@ function startExperience() {
         showSurprise();
     }
 }
+
 
 function showRoses() {
     const container = document.getElementById("mainContent");
